@@ -72,11 +72,22 @@ Each country will have their own regression model. This model only runs the data
 
 ![image](https://user-images.githubusercontent.com/103209236/189551477-499797ed-400e-44f2-8af7-ee79232277a4.png)
 
-The target is 'yield'. This is how much crop yield a country produces (hectogram/hectare). It is the target because we are using the other variables to predict the crop yield of each country. The features are the yield amounts for the prior five years, the average temperature including the prior five years, the potash amount including the prior three years, the nitrogen amount including the prior three years, the phosphate amount including the prior three years, the pesticide amount including the prior three years, the nitrogen amount including the prior three years, how much a county's land is dedicated to agriculture, and how much of a county's land is arable (able to be farmed). We did not include the year and long & lat since they are not variables in considering how much yield a country would have.
+The target is 'yield'. This is how much crop yield a country produces (hectogram/hectare). It is the target because we are using the other variables to predict the crop yield of each country. The features are varables that affect the yield. This includes...
+  - The yield amounts for the prior five years
+  - The average temperature including the prior five years
+  - The potash amount including the prior three years
+  - The nitrogen amount including the prior three years
+  - The phosphate amount including the prior three years
+  - The pesticide amount including the prior three years
+  - The nitrogen amount including the prior three years
+  - How much a county's land is dedicated to agriculture
+  - How much of a county's land is arable (able to be farmed). 
+  
+ We did not include the year and long & lat since they are not variables in considering how much yield a country would have.
 
 ![image](https://user-images.githubusercontent.com/103209236/189550887-95d391a6-7e9a-47ac-8785-e205a0341ebf.png)
 
-Because our dataset is relatively large, we split 30% of the data into the test data set and 70% of the data into the training data set for the model. This will assure we are not using most of our data for training.
+Because our dataset is relatively large, we split 30% of the data into the test data set and 70% of the data into the training data set for the model. This will assure we are not using almost all of our data for training.
 
 ![image](https://user-images.githubusercontent.com/103209236/189551744-1c455e91-5df8-48b3-83ec-19babbef51bf.png)
 
