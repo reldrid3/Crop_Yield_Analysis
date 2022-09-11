@@ -1,4 +1,4 @@
-Year,Area,Value
+year,area,value
 2008,Afghanistan,7794.0
 2009,Afghanistan,7793.0
 2010,Afghanistan,7793.0
@@ -137,12 +137,12 @@ Year,Area,Value
 2011,Bhutan,100.2
 2012,Bhutan,100.2
 2013,Bhutan,100.2
-2008,Bolivia (Plurinational State of),4266.0
-2009,Bolivia (Plurinational State of),4454.0
-2010,Bolivia (Plurinational State of),4297.0
-2011,Bolivia (Plurinational State of),4338.0
-2012,Bolivia (Plurinational State of),4422.0
-2013,Bolivia (Plurinational State of),4506.0
+2008,Bolivia,4266.0
+2009,Bolivia,4454.0
+2010,Bolivia,4297.0
+2011,Bolivia,4338.0
+2012,Bolivia,4422.0
+2013,Bolivia,4506.0
 2008,Bosnia and Herzegovina,1008.0
 2009,Bosnia and Herzegovina,997.0
 2010,Bosnia and Herzegovina,1004.0
@@ -245,30 +245,24 @@ Year,Area,Value
 2011,Chile,1317.0
 2012,Chile,1283.0
 2013,Chile,1309.0
-2008,China,121791.7556
-2009,China,121983.6
-2010,China,121369.8
-2011,China,120640.1
-2012,China,119959.5
-2013,China,119761.5
 2008,"China, Hong Kong SAR",4.0
 2009,"China, Hong Kong SAR",4.0
 2010,"China, Hong Kong SAR",3.5
 2011,"China, Hong Kong SAR",3.5
 2012,"China, Hong Kong SAR",3.1
 2013,"China, Hong Kong SAR",3.1
-2008,"China, mainland",121190.7556
-2009,"China, mainland",121384.6
-2010,"China, mainland",120768.3
-2011,"China, mainland",120038.6
-2012,"China, mainland",119358.4
-2013,"China, mainland",119163.4
-2008,"China, Taiwan Province of",597.0
-2009,"China, Taiwan Province of",595.0
-2010,"China, Taiwan Province of",598.0
-2011,"China, Taiwan Province of",598.0
-2012,"China, Taiwan Province of",598.0
-2013,"China, Taiwan Province of",595.0
+2008,China,121190.7556
+2009,China,121384.6
+2010,China,120768.3
+2011,China,120038.6
+2012,China,119358.4
+2013,China,119163.4
+2008,Taiwan,597.0
+2009,Taiwan,595.0
+2010,Taiwan,598.0
+2011,Taiwan,598.0
+2012,Taiwan,598.0
+2013,Taiwan,595.0
 2008,Colombia,1830.0
 2009,Colombia,1775.0
 2010,Colombia,1763.0
@@ -329,12 +323,12 @@ Year,Area,Value
 2011,Czechia,2521.61
 2012,Czechia,2518.8
 2013,Czechia,2501.0
-2008,Democratic People's Republic of Korea,2400.0
-2009,Democratic People's Republic of Korea,2400.0
-2010,Democratic People's Republic of Korea,2400.0
-2011,Democratic People's Republic of Korea,2350.0
-2012,Democratic People's Republic of Korea,2350.0
-2013,Democratic People's Republic of Korea,2350.0
+2008,Democratic People's South Korea,2400.0
+2009,Democratic People's South Korea,2400.0
+2010,Democratic People's South Korea,2400.0
+2011,Democratic People's South Korea,2350.0
+2012,Democratic People's South Korea,2350.0
+2013,Democratic People's South Korea,2350.0
 2008,Democratic Republic of the Congo,6750.0
 2009,Democratic Republic of the Congo,7932.0
 2010,Democratic Republic of the Congo,9114.0
@@ -563,12 +557,12 @@ Year,Area,Value
 2011,Indonesia,23500.0
 2012,Indonesia,23500.0
 2013,Indonesia,23500.0
-2008,Iran (Islamic Republic of),15545.0
-2009,Iran (Islamic Republic of),15566.0
-2010,Iran (Islamic Republic of),15390.0
-2011,Iran (Islamic Republic of),15214.0
-2012,Iran (Islamic Republic of),15038.0
-2013,Iran (Islamic Republic of),14687.0
+2008,Iran,15545.0
+2009,Iran,15566.0
+2010,Iran,15390.0
+2011,Iran,15214.0
+2012,Iran,15038.0
+2013,Iran,14687.0
 2008,Iraq,4000.0
 2009,Iraq,3650.0
 2010,Iraq,4000.0
@@ -790,6 +784,7 @@ Year,Area,Value
 2010,Montenegro,172.0
 2011,Montenegro,173.0
 2012,Montenegro,172.0
+2013,Montenegro,7.8
 2008,Montserrat,2.0
 2009,Montserrat,2.0
 2010,Montserrat,2.0
@@ -832,9 +827,6 @@ Year,Area,Value
 2011,Netherlands,1006.0
 2012,Netherlands,1011.0
 2013,Netherlands,1038.4
-2008,Netherlands Antilles (former),8.0
-2009,Netherlands Antilles (former),8.0
-2010,Netherlands Antilles (former),8.0
 2008,New Caledonia,6.8
 2009,New Caledonia,6.8
 2010,New Caledonia,6.8
@@ -967,18 +959,18 @@ Year,Area,Value
 2011,Qatar,16.08
 2012,Qatar,16.46
 2013,Qatar,17.1
-2008,Republic of Korea,1565.0
-2009,Republic of Korea,1536.0
-2010,Republic of Korea,1507.0
-2011,Republic of Korea,1488.0
-2012,Republic of Korea,1522.2
-2013,Republic of Korea,1495.8
-2008,Republic of Moldova,1821.0
-2009,Republic of Moldova,1817.0
-2010,Republic of Moldova,1813.0
-2011,Republic of Moldova,1811.0
-2012,Republic of Moldova,1814.0
-2013,Republic of Moldova,1816.0
+2008,South Korea,1565.0
+2009,South Korea,1536.0
+2010,South Korea,1507.0
+2011,South Korea,1488.0
+2012,South Korea,1522.2
+2013,South Korea,1495.8
+2008,Moldova,1821.0
+2009,Moldova,1817.0
+2010,Moldova,1813.0
+2011,Moldova,1811.0
+2012,Moldova,1814.0
+2013,Moldova,1816.0
 2008,Réunion,35.2
 2009,Réunion,35.0
 2010,Réunion,35.3
@@ -991,12 +983,12 @@ Year,Area,Value
 2011,Romania,8995.0
 2012,Romania,8798.0
 2013,Romania,8746.0
-2008,Russian Federation,121649.0
-2009,Russian Federation,121649.0
-2010,Russian Federation,121649.0
-2011,Russian Federation,121649.0
-2012,Russian Federation,121649.0
-2013,Russian Federation,121649.0
+2008,Russia,121649.0
+2009,Russia,121649.0
+2010,Russia,121649.0
+2011,Russia,121649.0
+2012,Russia,121649.0
+2013,Russia,121649.0
 2008,Rwanda,1117.44
 2009,Rwanda,1118.87
 2010,Rwanda,1123.92
@@ -1093,6 +1085,7 @@ Year,Area,Value
 2011,Slovakia,1391.2
 2012,Slovakia,1392.3
 2013,Slovakia,1361.6
+2008,Slovenia,183.41
 2009,Slovenia,184.25
 2010,Slovenia,184.59
 2011,Slovenia,184.35
@@ -1116,8 +1109,6 @@ Year,Area,Value
 2011,South Africa,12033.0
 2012,South Africa,12000.0
 2013,South Africa,12000.0
-2012,South Sudan,2658.7125
-2013,South Sudan,2616.425
 2008,Spain,12488.0
 2009,Spain,12497.0
 2010,Spain,12528.0
@@ -1130,12 +1121,6 @@ Year,Area,Value
 2011,Sri Lanka,1300.0
 2012,Sri Lanka,1300.0
 2013,Sri Lanka,1300.0
-2012,Sudan,19856.76
-2013,Sudan,19839.96
-2008,Sudan (former),19321.0
-2009,Sudan (former),19898.8
-2010,Sudan (former),19877.7
-2011,Sudan (former),19877.7
 2008,Suriname,47.0
 2009,Suriname,58.0
 2010,Suriname,55.0
@@ -1154,12 +1139,12 @@ Year,Area,Value
 2011,Switzerland,403.9
 2012,Switzerland,403.8
 2013,Switzerland,402.9017
-2008,Syrian Arab Republic,4699.0
-2009,Syrian Arab Republic,4670.0
-2010,Syrian Arab Republic,4687.0
-2011,Syrian Arab Republic,4662.0
-2012,Syrian Arab Republic,4665.0
-2013,Syrian Arab Republic,4662.0
+2008,Syria,4699.0
+2009,Syria,4670.0
+2010,Syria,4687.0
+2011,Syria,4662.0
+2012,Syria,4665.0
+2013,Syria,4662.0
 2008,Tajikistan,741.0
 2009,Tajikistan,751.4
 2010,Tajikistan,746.9
@@ -1202,12 +1187,12 @@ Year,Area,Value
 2011,Tunisia,2839.0
 2012,Tunisia,2848.0
 2013,Tunisia,2853.0
-2008,Türkiye,21555.0
-2009,Türkiye,21351.0
-2010,Türkiye,21384.0
-2011,Türkiye,20539.0
-2012,Türkiye,20577.0
-2013,Türkiye,20574.0
+2008,Turkey,21555.0
+2009,Turkey,21351.0
+2010,Turkey,21384.0
+2011,Turkey,20539.0
+2012,Turkey,20577.0
+2013,Turkey,20574.0
 2008,Turkmenistan,1990.0
 2009,Turkmenistan,1990.0
 2010,Turkmenistan,1940.0
@@ -1238,24 +1223,24 @@ Year,Area,Value
 2011,United Arab Emirates,45.1
 2012,United Arab Emirates,37.1
 2013,United Arab Emirates,37.5
-2008,United Kingdom of Great Britain and Northern Ireland,6005.0
-2009,United Kingdom of Great Britain and Northern Ireland,6049.0
-2010,United Kingdom of Great Britain and Northern Ireland,5970.0
-2011,United Kingdom of Great Britain and Northern Ireland,6062.0
-2012,United Kingdom of Great Britain and Northern Ireland,6212.0
-2013,United Kingdom of Great Britain and Northern Ireland,6265.4
-2008,United Republic of Tanzania,11325.7
-2009,United Republic of Tanzania,11507.1
-2010,United Republic of Tanzania,11688.5
-2011,United Republic of Tanzania,11869.9
-2012,United Republic of Tanzania,12051.3
-2013,United Republic of Tanzania,12232.7
-2008,United States of America,160425.5
-2009,United States of America,159071.0
-2010,United States of America,157716.5
-2011,United States of America,156362.0
-2012,United States of America,155007.5
-2013,United States of America,155553.4
+2008,United Kingdom,6005.0
+2009,United Kingdom,6049.0
+2010,United Kingdom,5970.0
+2011,United Kingdom,6062.0
+2012,United Kingdom,6212.0
+2013,United Kingdom,6265.4
+2008,Tanzania,11325.7
+2009,Tanzania,11507.1
+2010,Tanzania,11688.5
+2011,Tanzania,11869.9
+2012,Tanzania,12051.3
+2013,Tanzania,12232.7
+2008,United States,160425.5
+2009,United States,159071.0
+2010,United States,157716.5
+2011,United States,156362.0
+2012,United States,155007.5
+2013,United States,155553.4
 2008,United States Virgin Islands,1.0
 2009,United States Virgin Islands,1.0
 2010,United States Virgin Islands,1.0
@@ -1280,18 +1265,18 @@ Year,Area,Value
 2011,Vanuatu,20.0
 2012,Vanuatu,20.0
 2013,Vanuatu,20.0
-2008,Venezuela (Bolivarian Republic of),2700.0
-2009,Venezuela (Bolivarian Republic of),2600.0
-2010,Venezuela (Bolivarian Republic of),2600.0
-2011,Venezuela (Bolivarian Republic of),2600.0
-2012,Venezuela (Bolivarian Republic of),2600.0
-2013,Venezuela (Bolivarian Republic of),2600.0
-2008,Viet Nam,6282.5
-2009,Viet Nam,6300.0
-2010,Viet Nam,6437.4
-2011,Viet Nam,6437.6
-2012,Viet Nam,6401.3
-2013,Viet Nam,6422.8
+2008,Venezuela,2700.0
+2009,Venezuela,2600.0
+2010,Venezuela,2600.0
+2011,Venezuela,2600.0
+2012,Venezuela,2600.0
+2013,Venezuela,2600.0
+2008,Vietnam,6282.5
+2009,Vietnam,6300.0
+2010,Vietnam,6437.4
+2011,Vietnam,6437.6
+2012,Vietnam,6401.3
+2013,Vietnam,6422.8
 2008,Wallis and Futuna Islands,1.0
 2009,Wallis and Futuna Islands,1.0
 2010,Wallis and Futuna Islands,1.0
