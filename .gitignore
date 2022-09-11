@@ -1,10 +1,8 @@
 *.pdf
-Parking_Violations_Issued_-_Fiscal_Year_2017.csv
+*.csv
 
 # for Mac users 
 **/.DS_Store
 
-*.csv
-
-# # Adding config.py file.
+# Adding config.py file.
 config.py
