@@ -51,6 +51,7 @@ Now the database is intergrated with the clean data file, stored as tables in a 
 
 We used Jupyter Notebook and python code to create a crop_yield dataframe for the country, Albania. We created 2 linear regression models. The first model did not have a great linear relationship, so we modified the dataframe to be only for the crop, Maize for the country of Albania. We ran the linear regression model again for those conditions and determined a better relationship. Refer to the graph screenshots below for both linear regression models.
 
+# Model Draft 1
 ## Linear Regression - Albania
 ![Image](https://github.com/emaynard10/Crop_Yield_Analysis/blob/courtney_s/screenshot_images/Linear_Regression_Albania.png)
 - This shows that the linear regression is relatively flat and not very good statistically.
@@ -66,3 +67,5 @@ We used Jupyter Notebook and python code to create a crop_yield dataframe for th
 ## Dashboard
 We will be using Leaflet, an open-source JavaScript library, that facilitates the development of interactive maps. Our map will have pins for each county, with the option to filter for different crops. When you click on the country you are able to see a prediction for future crop yields.
 
+# Machine Learning Model - Week 2
+## We improved our linear regression model by running a multivariate linear regression model. We choose this model because we wanted to factor multiple conditions such as average temperature, nutrient use of fertilizer (phospate, nitrogen), land use size, pesticide amount, yield amounts for the past 5 years, and previous year's values for each of the conditions. We split 30% of the data into the test data set and 70% of the data into the training data set for the model. The benefit of multivariate linear regression model is that one can predict the future based on many conditions. The limitations of this model is the assumption of linearity between the variables and the possibility for overfitting the model.
