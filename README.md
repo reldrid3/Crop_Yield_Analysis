@@ -72,7 +72,7 @@ Each country will have their own regression model. This model only runs the data
 
 ![image](https://user-images.githubusercontent.com/103209236/189551477-499797ed-400e-44f2-8af7-ee79232277a4.png)
 
-The target is 'yield'. This is how much crop yield a country produces (hectogram/hectare). It is the target because we are using the other variables to predict the crop yield of each country. The features are varables that affect the yield. This includes...
+The target is 'yield'. This is how much crop yield a country produces (hectogram/hectare). It is the target because we are using the other variables to predict the crop yield of each country. The features are variables that affect the yield. This includes...
   - The yield amounts for the prior five years
   - The average temperature including the prior five years
   - The potash amount including the prior three years
@@ -82,12 +82,15 @@ The target is 'yield'. This is how much crop yield a country produces (hectogram
   - The nitrogen amount including the prior three years
   - How much a county's land is dedicated to agriculture
   - How much of a county's land is arable (able to be farmed). 
-  
+
+ ### Data preprocessing 
+ ####  Feature Selection
  We did not include the year and long & lat since they are not variables in considering how much yield a country would have.
 
 ![image](https://user-images.githubusercontent.com/103209236/189550887-95d391a6-7e9a-47ac-8785-e205a0341ebf.png)
 
-Because our dataset is relatively large, we split 30% of the data into the test data set and 70% of the data into the training data set for the model. This will assure we are not using almost all of our data for training.
+#### Training vs. Testing Data Split
+Because our dataset is relatively large, we split 30% of the data into the test data set and 70% of the data into the training data set for the model. This will assure we are not using almost all of our data for training. We used train-test-split from the sklearn library.
 
 ![image](https://user-images.githubusercontent.com/103209236/189551744-1c455e91-5df8-48b3-83ec-19babbef51bf.png)
 
