@@ -32,5 +32,5 @@ We used Jupyter Notebook and python code to create a crop_yield dataframe for th
 - This shows there are a high correlations between the fields in the Albania and Maize dataframe.
 
 ## Dashboard
-We will be using Leaflet, an open-source JavaScript library, that facilitates the development of interactive maps. Our map will have pins for each county, with the option to filter for different crops. When you click on the country you should be able to see a prediction for future crop yields.
+We will be using Leaflet, an open-source JavaScript library, that facilitates the development of interactive maps. Our map will have pins for each county, with the option to filter for different crops. When you click on the country you are able to see a prediction for future crop yields.
 
