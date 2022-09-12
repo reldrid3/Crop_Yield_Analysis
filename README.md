@@ -25,6 +25,9 @@ The exploratory and analysis phases both took longer and were more complicated t
 Our group will utilize Slack, text messages, and Zoom meetings to keep communication open between all five group members. This way if a team member has a question or needs help outside of designated class meeting hours, they can post a message in slack, meet up with a team member(s) in Zoom or send a text for a more immediate response. One team member is in a different time zone, two hours behind the other team members; the team recognizes this potential issue and will plan meetings ahead of time utilizing evenings and weekends. Our group will divide tasks between the five group members and remain open to different forms of communication if necessary or if something is not working.
 
 ## Database
+
+![Crop_Yield_Analysis Entity Relationship Diagram](https://user-images.githubusercontent.com/103209236/189776825-96dffa7f-a1a6-4ea5-ad41-4b9a47bc1d26.png)
+
 We connected our cleaned data to Postgres with a connection string using SQLAlchemy and the to_sql() method in Pandas. We created an engine and exported each of the cleaned tables(9) to the database, Crop_Yields_DB, which was created in  the local Postgres server. Images of the tables in Postgres can be viewed in the db_table_pngs folder. 
 ~~~ 
 # connection string for local server
