@@ -11,6 +11,16 @@ The data can be found at https://www.kaggle.com/datasets/patelris/crop-yield-pre
 - Which factors (temperature, nutrients, etc.) are the most important for impacting the highest crop yield?
 - How can countries maximize their crop yield based on the important factors considered?
 
+### Data Exploration Phase
+During our exploratory data analysis we created a function to clean all the datasets that we import from the FAO website. This included dropping null values, dropping duplicates, and discovering which years there was adequate data for. We determined there was sufficient data during the years 2008-2013. We were able to loop through the data and add previous years data as features that could influence that years yields. 
+
+### Data Analysis Phase
+During our data analysis phase we continued to pair down the data by using str.replace() to match all country names and correct variations in spelling. At this point there were 106 countries we used for our analysis. The crops value_counts for those countries are as follows:
+
+![Screen Shot 2022-09-11 at 6 14 38 PM](https://user-images.githubusercontent.com/99676466/189555201-28ee5f96-056c-467d-b92e-7256e2e5d6a0.png)
+
+The exploratory and analysis phases both took longer and were more complicated than we had originally planned for, but we feel confident the data we have selected will help us learn some interesting things about what influences crop yields.
+
 ## Communication Protocols
 Our group will utilize Slack, text messages, and Zoom meetings to keep communication open between all five group members. This way if a team member has a question or needs help outside of designated class meeting hours, they can post a message in slack, meet up with a team member(s) in Zoom or send a text for a more immediate response. One team member is in a different time zone, two hours behind the other team members; the team recognizes this potential issue and will plan meetings ahead of time utilizing evenings and weekends. Our group will divide tasks between the five group members and remain open to different forms of communication if necessary or if something is not working.
 
