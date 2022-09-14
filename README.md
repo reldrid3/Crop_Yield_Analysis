@@ -115,10 +115,23 @@ Because our dataset is relatively large, we split 30% of the data into the test 
 
 ![image](https://user-images.githubusercontent.com/103209236/189551744-1c455e91-5df8-48b3-83ec-19babbef51bf.png)
 
+#### Initial Model Results
+In order to get an initial impression of our model we ran it on Albania. We ran predictions for the test set and compared them to actual values. 
+~~~
+#Actual value and the predicted value
+mlr_diff = pd.DataFrame({'Actual value': y_test, 'Predicted value': y_pred_mlr})
+mlr_diff.head()
+~~~
+![Screen Shot 2022-09-14 at 10 44 38 AM](https://user-images.githubusercontent.com/99676466/190225551-33df6c62-93ee-40b4-9e1d-41217b518b91.png)
+
+Then we ran som statistics by importing metrics from the sklearn library and running r-squared, which returns a percentage, and measures the proportion of the variance for yields that is explained by the independent variables. So for our model, a large portion of the variance can be explained by the model inputs, or features. Because we have a large number of variables, that can contribute to a high r-squared value. To account for this overfitting, we ran some more stats to compare. The root mean squared error(RMSE), tells us how concentrated our data is around our line of best fit, or how far do our data points vary from our prediction. The RMSE value is in relation to our units which are hectagrams/hectare, so in our case is relatively small and means that the model is generally accounting for the important features very well. 
+
+![Screen Shot 2022-09-14 at 11 55 29 AM](https://user-images.githubusercontent.com/99676466/190227647-50530f27-5e3e-4606-8dbe-fd508624264c.png)
+
+The next model will create a nested for loop to cycle all the countries through the model, and get a predicted yield for each country in the year 2013. It can then be compared to the actual. 
 
 #### Benefits and Drawbacks
-The benefit of multivariate linear regression model is that one can predict the future based on many conditions. The limitations of this model is the assumption of linearity between the variables and the possibility for noisy data.
-
+The benefit of multivariate linear regression model is that one can predict the future based on many conditions. The limitations of this model is the assumption of linearity between the variables and the possibility for noisy data. The next model run will scale the data using the StandardScaler from the sklearn library since scaling can impact linear regression.
 
 ## Dashboard
 We will be using Leaflet, an open-source JavaScript library, that facilitates the development of interactive maps. Our map will have pins for each county, with the option to filter for different crops. When you click on the country you are able to see a prediction for future crop yields.
