@@ -1,8 +1,8 @@
 *.pdf
-*.csv
 
 # for Mac users 
 **/.DS_Store
 
 # Adding config.py file.
 config.py
+config.js
