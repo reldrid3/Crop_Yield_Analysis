@@ -2,9 +2,17 @@
 
 ## Topic Selection
 
-Our group selected the topic of crop yield, which is based on different factors such as temperature, nutrients, land use, and pesticides. Agriculture is a critical role in the global economy and understanding it can help solve global challenges, such as food security and reducing impact of climate change. We were interested in the crop yield data and wanted to determine what conditions create the best crop yield and which conditions have a higher effect on which countries yield the most crops for the year. The data source is from Kaggle, which uses the publicly available datasets from Food and Agriculture Organization (FAO) and World Data Bank.
+Our group selected the topic of crop yield, which is based on different factors such as temperature, nutrients, land use, and pesticides. Agriculture is a critical role in the global economy and understanding it can help solve global challenges, such as food security and reducing effects on and impact of climate change. Between the pandemic, the war in Ukraine, climate disasters, and inflation driving higher food prices, food scarcity is a topic at the forefront of the global economic and political landscape. We were interested in the crop yield data and wanted to determine what conditions create the best crop yield and which conditions have a higher effect on which countries yield the most crops for the year.
 
-The data can be found at https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset
+## Data Selection
+We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset), but realized the rainfall data was corrupt(all the same values). So we got data from the [Food and Agriculture Organization (FAO)](https://www.fao.org/faostat/en/#data/domains_table), where we were able to select data from variables we thought would be interesting. These include:
+* [Agricultural and Arable Land](https://www.fao.org/faostat/en/#data/RL)
+* [Nutrient Application: Nitrogen, Phosophate,Potash](https://www.fao.org/faostat/en/#data/RFN)
+* [Pesticides](https://www.fao.org/faostat/en/#data/RP)
+* [Temperature](https://www.fao.org/faostat/en/#data/ET)
+* [Crop yields](https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset)
+
+In order to create a map for our dashboard we also added [latitude and longitude data](https://developers.google.com/public-data/docs/canonical/countries_csv)
 
 ## Questions we Hope to Answer
 - Which country has the best conditions to yield the most crop consistently over time?
@@ -107,6 +115,8 @@ Because our dataset is relatively large, we split 30% of the data into the test 
 
 ![image](https://user-images.githubusercontent.com/103209236/189551744-1c455e91-5df8-48b3-83ec-19babbef51bf.png)
 
+
+#### Benefits and Drawbacks
 The benefit of multivariate linear regression model is that one can predict the future based on many conditions. The limitations of this model is the assumption of linearity between the variables and the possibility for noisy data.
 
 
