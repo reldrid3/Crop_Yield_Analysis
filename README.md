@@ -104,8 +104,8 @@ The target is 'yield'. This is how much crop yield a country produces (hectogram
   - The phosphate amount including the prior three years
   - The pesticide amount including the prior three years
   - The nitrogen amount including the prior three years
-  - How much a county's land is dedicated to agriculture
-  - How much of a county's land is arable (able to be farmed). 
+  - How much a country's land is dedicated to agriculture
+  - How much of a country's land is arable (able to be farmed). 
 
  ### Data preprocessing 
  ####  Feature Selection
@@ -137,7 +137,7 @@ The next model will create a nested for loop to cycle all the countries through 
 The benefit of multivariate linear regression model is that one can predict the future based on many conditions. The limitations of this model is the assumption of linearity between the variables and the possibility for noisy data. The next model run will scale the data using the StandardScaler from the sklearn library since scaling can impact linear regression.
 
 ## Machine Learning Model- Week 3
-Our work continued with our model by creating a for loop to loop through each country and run a linear regression to predict the yield for the year 2013. The result is a dataframe with predictions, what the actual yield was for 2013 anad the difference between the two. 
+Our work continued with our model by creating a for loop to loop through each country and run a linear regression to predict the yield for the year 2013. The result is a dataframe with predictions, what the actual yield was for 2013 and the difference between the two. 
 ~~~
 predictions_df = pd.DataFrame(columns = ['area', 'crop', 'lat', 'long', 'yield_2013', \
                                          'yield_2013_pred', 'yield_2013_diff', 'perc_err'])
