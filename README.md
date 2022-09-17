@@ -58,7 +58,7 @@ During our data analysis phase we continued to pair down the data by using str.r
 
 Potatoes had the highest yields and the top countries for producing potatoes were Belgium, New Zealand, France, Switzerland, and the United States, with New Zealand being the most consitent over the years we looked at for high potato yields.
 
-![Screen Shot 2022-09-17 at 10 23 11 AM](https://user-images.githubusercontent.com/99676466/190867018-c3a50a67-1090-4517-81d9-3c0173744536.png)
+![Screen Shot 2022-09-17 at 12 39 23 PM](https://user-images.githubusercontent.com/99676466/190871876-dd623eb8-ab26-4402-a787-a21644d9e3c9.png)
 
 The countries with the highest yields of maize were the Netherlands and Tajikistan. The countries producing the highest wheat yields consistently were Ireland, Belgium, and the Netherlands. Every year Turkey produced the most soybeans. Algeria, Italy, and France consistently produce the most sorghum. Senegal, Australia, and Egypt produce the most sweet potatoes. Mali and Japan produce the most yams and India produces the most cassava. And Australia and Egypt produce the most rice paddies. Finally, Suriname and El Salvador produce the most plantians and other crops, which is bucketed together in this one category. Interestingly, though not surprisingly, it looks like the U.S. leads in use of pesticides and fertilizers. More pesticide and fertilizer use does not account for higher yields after a certain point, and this is an area that could be honed in on more with further research. 
 
