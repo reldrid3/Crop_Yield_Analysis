@@ -5,7 +5,7 @@ console.log("logic.js loading ...");
 // Map Setup
 //
 
-var MAPBOX_API_KEY = API_KEY || $API_KEY;
+var MAPBOX_API_KEY = API_KEY || process.env.API_KEY;
 
 // Create the tile layers that will be the backgrounds of our map.
 let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
