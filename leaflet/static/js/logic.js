@@ -1,231 +1,175 @@
-// Add console.log to check to see if our code is working.
-console.log("working");
+// Add console.log to check to see if our code is loading.
+console.log("logic.js loading ...");
 
 //
 // Map Setup
 //
 
-// We create the tile layer that will be the background of our map.
-let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-	maxZoom: 18,
-	accessToken: API_KEY
-});
-// We create the dark view tile layer that will be an option for our map.
-let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-  attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 18,
-  accessToken: API_KEY
-});
-// We create the second tile layer that will be the background of our map.
+// Create the tile layers that will be the backgrounds of our map.
 let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
 	maxZoom: 18,
 	accessToken: API_KEY
 });
+let light = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+	maxZoom: 18,
+	accessToken: API_KEY
+});
+let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+	maxZoom: 18,
+	accessToken: API_KEY
+});
+
+// Create layer groups for each crop
+let potatoes = new L.LayerGroup();
+let maize = new L.LayerGroup();
+let wheat = new L.LayerGroup();
+let rice = new L.LayerGroup();
+let sorghum = new L.LayerGroup();
+let soybeans = new L.LayerGroup();
+let sweet = new L.LayerGroup();
+let cassava = new L.LayerGroup();
+let plantains = new L.LayerGroup();
+let yams = new L.LayerGroup();
+
+// Create a dictionary that connects the crop name string to the corresponding layer group
+var lgDict = {
+  "Potatoes": potatoes,
+  "Maize": maize,
+  "Wheat": wheat,
+  "Rice, paddy": rice,
+  "Sorghum": sorghum,
+  "Soybeans": soybeans,
+  "Sweet potatoes": sweet,
+  "Cassava": cassava,
+  "Plantains and others": plantains,
+  "Yams": yams
+}
+
+// Function to create an icon given a relative path to the icon file and a size for the icon.
+// The anchor will be shifted to be centered with the lat/long point, and the popup will show up above the icon
+function makeIcon(x, y, path) {
+  let newIcon = L.Icon.extend({
+    options: {
+        iconSize:     [x, y],
+        iconAnchor:   [x * 0.5, y * 0.5],
+        popupAnchor:  [0, y * -0.5],
+        iconUrl: path
+    }
+  });
+  retIcon = new newIcon();
+  return(retIcon);
+};
+
+// Icons are created individually so that the makeIcon function would
+// not be called with every call to the iconDict{}
+potatoIcon = makeIcon(40,40,"icons/potato.png");
+maizeIcon = makeIcon(40,40,"icons/corn2.png");
+wheatIcon = makeIcon(60,60,"icons/wheat.png");
+riceIcon = makeIcon(50,50,"icons/rice2.png");
+sorghumIcon = makeIcon(78,80,"icons/sorghum2.png");
+soybeanIcon = makeIcon(50,50,"icons/soybean.png");
+swpotatoIcon = makeIcon(60,60,"icons/sweetpotato.png");
+cassavaIcon = makeIcon(60,60,"icons/cassava.png");
+plantainIcon = makeIcon(50,50,"icons/plantain2.png");
+yamIcon = makeIcon(50,50,"icons/yam.png");
+
+// Create a dictionary that connects the crop name string to the corresponding icon
+var iconDict = {
+  "Potatoes": potatoIcon,
+  "Maize": maizeIcon,
+  "Wheat": wheatIcon,
+  "Rice, paddy": riceIcon,
+  "Sorghum": sorghumIcon,
+  "Soybeans": soybeanIcon,
+  "Sweet potatoes": swpotatoIcon,
+  "Cassava": cassavaIcon,
+  "Plantains and others": plantainIcon,
+  "Yams": yamIcon
+}
 
 // Create a base layer that holds all three maps.
 let baseMaps = {
-  "Streets": streets,
   "Satellite": satelliteStreets,
-  "Nighttime": dark
+  "Light": light,
+  "Streets": streets
 };
 
-// 1. Add a 2nd layer group for the tectonic plate data.
-//let allEarthquakes = new L.LayerGroup();
-//let majorEarthquakes = new L.LayerGroup();
-let tectPlates = new L.LayerGroup();
+// 2. Create a dictionary of the different layer groups - this will be in a base control, rather than an overlay control
+let cropMaps = {
+  "Potatoes": potatoes,
+  "Maize (Corn)": maize,
+  "Wheat": wheat,
+  "Rice": rice,
+  "Sorghum": sorghum,
+  "Soybeans": soybeans,
+  "Sweet Potatoes": sweet,
+  "Cassava": cassava,
+  "Plantains": plantains,
+  "Yams": yams
+};
 
-
-// 2. Add a reference to the tectonic plates group to the overlays object.
+// Empty overlays dictionary
 let overlays = {
-  // *** THESE LAYERS WERE REMOVED DUE TO SLIDER IMPLEMENTATION ***
-  //"Earthquakes": allEarthquakes,
-  //"Major Earthquakes": majorEarthquakes,
-  "Tectonic Plates": tectPlates
-};
+}
 
 // Create the map object with center, zoom level and default layer.
 let map = L.map('mapid', {
-	center: [40.7, -94.5],
+	center: [40, 4.0],
 	zoom: 3,
-	layers: [streets]
+	layers: [satelliteStreets, potatoes]
 });
 
-// Then we add a control to the map that will allow the user to change which
-// layers are visible.
-layerControl = L.control.layers(baseMaps, overlays, {
+// Create a control to adjust the street layers with radio buttons
+mapControl = L.control.layers(baseMaps, overlays, {
   collapsed: false
 }).addTo(map);
 
-// Function to create the legend, for readability
-function createLegend()
-{
-  // Here we create a legend control object.
-  let legend = L.control({
-    position: "bottomright"
-  });
-
-  // Then add all the details for the legend
-  legend.onAdd = function() {
-    let div = L.DomUtil.create("div", "info legend");
-
-    const magnitudes = [0, 1, 2, 3, 4, 5];
-    const colors = [
-      "#98ee00",
-      "#d4ee00",
-      "#eecc00",
-      "#ee9c00",
-      "#ea822c",
-      "#ea2c2c"
-    ];
-
-    // Looping through our intervals to generate a label with a colored square for each interval.
-    for (var i = 0; i < magnitudes.length; i++) {
-      console.log(colors[i]);
-      div.innerHTML +=
-        "<i style='background: " + colors[i] + "'></i> " +
-        magnitudes[i] + (magnitudes[i + 1] ? "&ndash;" + magnitudes[i + 1] + "<br>" : "+");
-    }
-    return div;
-  };
-
-  // Finally, we our legend to the map.
-  legend.addTo(map);
-}
-
-createLegend();
+// Then we add a control to the map that will allow the user to change which
+// layers are visible.  This is a baseMaps layer, rather than an overlay, so
+// It will be a radio button rather than a checkbox.
+cropControl = L.control.layers(cropMaps, overlays, {
+  collapsed: false
+}).addTo(map);
 
 //
 // Styles and Styling Functions
 //
 
-// This function returns the style data for each of the earthquakes we plot on
-// the map. We pass the magnitude of the earthquake into two separate functions
-// to calculate the color and radius.
-function eqStyle(feature) {
-  return {
-    opacity: 1,
-    fillOpacity: 1,
-    fillColor: eqColor(feature.properties.mag),
-    color: "#000000",
-    radius: eqRadius(feature.properties.mag),
-    stroke: true,
-    weight: 0.5
-  };
-}
-// This function determines the color of the marker based on the magnitude of the earthquake.
-function eqColor(magnitude) {
-  if (magnitude > 5) {
-    return "#ea2c2c";
-  }
-  if (magnitude > 4) {
-    return "#ea822c";
-  }
-  if (magnitude > 3) {
-    return "#ee9c00";
-  }
-  if (magnitude > 2) {
-    return "#eecc00";
-  }
-  if (magnitude > 1) {
-    return "#d4ee00";
-  }
-  return "#98ee00";
-}
-// This function determines the radius of the earthquake marker based on its magnitude.
-// Earthquakes with a magnitude of 0 were being plotted with the wrong radius.
-function eqRadius(magnitude) {
-  if (magnitude === 0) {
-    return 1;
-  }
-  return magnitude * 4;
-}
-
-let tectLineStyle = {
-  color: "purple",
-  weight: 1.5
-};
-
 //
-// Adding Overlay Data
+// Adding Marker
 //
 
-allEQLink = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+allCountriesLink = "predictions.geojson";
 
-
-// Retrieve the earthquake GeoJSON data.
-d3.json(allEQLink).then(function(data) {
+// Retrieve the crops data.
+d3.json(allCountriesLink).then(function(data) {
   // Creating a GeoJSON layer with the retrieved data.
-  var eqData = L.geoJson(data, {
+  var cData = L.geoJson(data, {
     // We turn each feature into a circleMarker on the map.
     pointToLayer: function(feature, latlng) {
-     		return L.circleMarker(latlng);
+     		return L.marker(latlng);
     },
-    // We set the style for each circleMarker using our styleInfo function.
-    style: eqStyle,
     // We create a popup for each circleMarker to display the magnitude and location of the earthquake
     //  after the marker has been created and styled.
     onEachFeature: function(feature, layer) {
-      // Ensure that each individual marker is put on the markerPane instead of the overlayPane
+      // Ensure that each individual marker is put on the markerPane instead of the basePane,
+      // despite being controlled by a radio button in the baseMaps of a control
       layer.options.pane = "markerPane";
-      layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
+      // Create the pop-up with HTML table formatting
+      layer.bindPopup("<table><tr><td><b>Country</b>:</td><td>" + feature.properties.area + "</td></tr>" + 
+                      "<tr><td><b>Crop</b>:</td><td>" + feature.properties.crop + "</td></tr>" +
+                      "<tr><td><b>Yield 2013 (Predicted)</b>:</td><td>" + feature.properties.yield_2013_pred + " hg/ha</td></tr>" +
+                      "<tr><td><b>Yield 2013 (Actual)</b>:</td><td>" + feature.properties.yield_2013 + " hg/ha</td></tr>" +
+                      "<tr><td><b>Percent Error</b>:</td><td>" + feature.properties.perc_err + "%</td></tr></table>");
+      // Set the icon for the point based on the crop
+      layer.setIcon(iconDict[feature.properties.crop]);
+      // Add the point to the matching Layer Group linked by the lgDict
+      layer.addTo(lgDict[feature.properties.crop]);
     }
-  });//.addTo(allEarthquakes);
-  
-  // ***The allEarthquakes layerGroup was made defunct by the layer(s) being created and managed by the Slider Control.***
-  // Then we add the earthquake layer to our map.
-  //allEarthquakes.addTo(map);
-
-  minMag = Math.min(...Object.entries(eqData._layers).map(x => x[1].feature.properties.mag));
-  maxMag = Math.max(...Object.entries(eqData._layers).map(x => x[1].feature.properties.mag));
-
-  var magSlider = null;
-  magSlider = L.control.sliderControl({
-    position: "topright",
-    layer: eqData,
-    minValue: minMag,
-    maxValue: maxMag
-  }).addTo(map);
-
-  magSlider.startSlider();
-
+  });
 });
 
-/* ***THIS WOULD BE THE CODE FOR DELIVERABLE #2, IF THERE WAS NO SLIDER***
-
-majorEQLink = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson"
-
-// Retrieve the earthquake GeoJSON data.
-d3.json(majorEQLink).then(function(data) {
-  // Creating a GeoJSON layer with the retrieved data.
-  L.geoJson(data, {
-    // We turn each feature into a circleMarker on the map.
-    pointToLayer: function(feature, latlng) {
-     		console.log(data);
-     		return L.circleMarker(latlng);
-    },
-    // We set the style for each circleMarker using our styleInfo function.
-    style: eqStyle,
-    // We create a popup for each circleMarker to display the magnitude and location of the earthquake
-    //  after the marker has been created and styled.
-    onEachFeature: function(feature, layer) {
-      layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
-    }
-  }).addTo(majorEarthquakes);
-
-  // Then we add the earthquake layer to our map.
-  majorEarthquakes.addTo(map);
-});
-
-*/
-
-tectonicLink = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json";
-
-// 3. Use d3.json to make a call to get our Tectonic Plate geoJSON data.
-d3.json(tectonicLink).then(function(data) {
-  L.geoJson(data, {
-    style: tectLineStyle
-  }).addTo(tectPlates);
-  tectPlates.addTo(map);
-});
+console.log("logic.js loaded successfully ...");
