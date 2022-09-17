@@ -4,7 +4,8 @@
 
 Our group selected the topic of crop yield, which is based on different factors such as temperature, nutrients, land use, and pesticides. Agriculture is a critical role in the global economy and understanding it can help solve global challenges, such as food security and reducing effects on and impact of climate change. Between the pandemic, the war in Ukraine, climate disasters, and inflation driving higher food prices, food scarcity is a topic at the forefront of the global economic and political landscape. We were interested in the crop yield data and wanted to determine what conditions create the best crop yield and which conditions have a higher effect on which countries yield the most crops for the year.
 
-## [Google Slides](https://docs.google.com/presentation/d/1yNYFJbbcBUawSA2hxCAlpLkM5uCbDq4VjPKTMF9JWZk/edit?usp=sharing)
+## Presentation
+[Google Slides](https://docs.google.com/presentation/d/1yNYFJbbcBUawSA2hxCAlpLkM5uCbDq4VjPKTMF9JWZk/edit?usp=sharing)
 
 ## Data Selection
 We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset), but realized the rainfall data was corrupt(all the same values). So we got data from the [Food and Agriculture Organization (FAO)](https://www.fao.org/faostat/en/#data/domains_table), where we were able to select data from variables we thought would be interesting. These include:
@@ -39,7 +40,8 @@ Our group will utilize Slack, text messages, and Zoom meetings to keep communica
 
 ## Database
 
-![Crop_Yield_Analysis Entity Relationship Diagram](https://user-images.githubusercontent.com/103209236/189776825-96dffa7f-a1a6-4ea5-ad41-4b9a47bc1d26.png)
+
+![Crop_Yield_Analysis Entity Relationship Diagram](https://user-images.githubusercontent.com/99676466/190865732-9dae519d-692a-49f6-81e4-330e7c46c578.png)
 
 We connected our cleaned data to Postgres with a connection string using SQLAlchemy and the to_sql() method in Pandas. We created an engine and exported each of the cleaned tables(9) to the database, Crop_Yields_DB, which was created in  the local Postgres server. Images of the tables in Postgres can be viewed in the db_table_pngs folder. 
 ~~~ 
