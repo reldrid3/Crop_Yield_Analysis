@@ -2,9 +2,11 @@
 
 ## Topic Selection
 
-Our group selected the topic of crop yield, which is based on different factors such as temperature, nutrients, land use, and pesticides. Agriculture is a critical role in the global economy and understanding it can help solve global challenges, such as food security and reducing effects on and impact of climate change. Between the pandemic, the war in Ukraine, climate disasters, and inflation driving higher food prices, food scarcity is a topic at the forefront of the global economic and political landscape. We were interested in the crop yield data and wanted to determine what conditions create the best crop yield and which conditions have a higher effect on which countries yield the most crops for the year.
+Our group selected the topic of crop yield, which is based on different factors such as temperature, nutrients, land use, and pesticides. Agriculture is a critical role in the global economy and understanding it can help solve global challenges, such as food security and reducing effects on and impact of climate change. Between the pandemic, the war in Ukraine, climate disasters, and inflation driving higher food prices, food scarcity is a topic at the forefront of the global economic and political landscape. With agriculture as a leading industry in numbers of employees and accounting for trillions of dollars in the global economy, crop yields have far reaching impacts. It is an industry that both contributes to and is impacted by climate change. We were interested in the crop yield data and wanted to determine what conditions create the best crop yield and which conditions have a higher effect on which countries yield the most crops for the year.
 
-## [Google Slides](https://docs.google.com/presentation/d/1yNYFJbbcBUawSA2hxCAlpLkM5uCbDq4VjPKTMF9JWZk/edit?usp=sharing)
+## Presentation
+[Google Slides](https://docs.google.com/presentation/d/1yNYFJbbcBUawSA2hxCAlpLkM5uCbDq4VjPKTMF9JWZk/edit?usp=sharing)
+![Screen Shot 2022-09-17 at 12 26 35 PM](https://user-images.githubusercontent.com/99676466/190871420-c9a9ad9f-5d37-4b06-9c2b-bf799db1fb10.png)
 
 ## Data Selection
 We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset), but realized the rainfall data was corrupt(all the same values). So we got data from the [Food and Agriculture Organization (FAO)](https://www.fao.org/faostat/en/#data/domains_table), where we were able to select data from variables we thought would be interesting. These include:
@@ -17,7 +19,7 @@ We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelr
 In order to create a map for our dashboard we also added [latitude and longitude data](https://developers.google.com/public-data/docs/canonical/countries_csv)
 
 ## Questions we Hope to Answer
-- Which country has the best conditions to yield the most crop consistently over time?
+- Which country has the best conditions to yield the most crops consistently over time?
 - Which factors (temperature, nutrients, etc.) are the most important for impacting the highest crop yield?
 - How can countries maximize their crop yield based on the important factors considered?
 
@@ -25,21 +27,49 @@ In order to create a map for our dashboard we also added [latitude and longitude
 Python, Pandas, Jupyter Notebooks, Postgresql, SQL, SQLALchemy, sklearn, matplotlib, Leaflet, Mapbox, Tableau, Javascript, html/css
 
 ### Data Exploration Phase
-During our exploratory data analysis we created a function to clean all the datasets that we import from the FAO website. This included dropping null values, dropping duplicates, and discovering which years there was adequate data for. We determined there was sufficient data during the years 2008-2013. We were able to loop through the data and add previous years data as features that could influence that years yields. 
+During our exploratory data analysis we created a function to clean all the datasets that we import from the FAO website. This included dropping null values, dropping duplicates, and discovering which years there was adequate data for. We used inner joins/merging of tables to determine where there was adequate data. We determined there was sufficient data during the years 2008-2013. We were able to loop through the data and add previous years data as features that could influence that year's yields. Different countries had data entered under different names, so we had to go through and match names with str.replace() so we wouldn't have duplicate countries. For example, we had to change all the following countries:
+~~~
+def clean_countries(df):
+    df['area'] = df['area'].str.replace("Türkiye", "Turkey")
+    df['area'] = df['area'].str.replace("United Kingdom of Great Britain and Northern Ireland", "United Kingdom")
+    df['area'] = df['area'].str.replace("The former Yugoslav Republic of Macedonia", "North Macedonia")
+    df['area'] = df['area'].str.replace("Bolivia (Plurinational State of)", "Bolivia", regex=False)
+    df['area'] = df['area'].str.replace("China, mainland", "China", regex=False)
+    df['area'] = df['area'].str.replace("Iran (Islamic Republic of)", "Iran", regex=False)
+    df['area'] = df['area'].str.replace("Republic of Moldova", "Moldova")
+    df['area'] = df['area'].str.replace("Russian Federation", "Russia")
+    df['area'] = df['area'].str.replace("Republic of Korea", "South Korea")
+    df['area'] = df['area'].str.replace("Syrian Arab Republic", "Syria")
+    df['area'] = df['area'].str.replace("China, Taiwan Province of", "Taiwan")
+    df['area'] = df['area'].str.replace("United Republic of Tanzania", "Tanzania")
+    df['area'] = df['area'].str.replace("United States of America", "United States")
+    df['area'] = df['area'].str.replace("Venezuela (Bolivarian Republic of)", "Venezuela", regex=False)
+    df['area'] = df['area'].str.replace("Viet Nam", "Vietnam")
+    df['area'] = df['area'].str.replace("Côte D'Ivoire", "Côte d'Ivoire")
+    df['area'] = df['area'].str.replace("Czech Republic", "Czechia")
+    df['area'] = df['area'].str.replace("Congo (Democratic Republic Of The)", "Democratic Republic of the Congo", regex=False)
+    return df
+ ~~~   
 
 ### Data Analysis Phase
 During our data analysis phase we continued to pair down the data by using str.replace() to match all country names and correct variations in spelling. At this point there were 106 countries we used for our analysis. The crops value_counts for those countries are as follows:
 
 ![Screen Shot 2022-09-11 at 6 14 38 PM](https://user-images.githubusercontent.com/99676466/189555201-28ee5f96-056c-467d-b92e-7256e2e5d6a0.png)
 
-The exploratory and analysis phases both took longer and were more complicated than we had originally planned for, but we feel confident the data we have selected will help us learn some interesting things about what influences crop yields.
+Potatoes had the highest yields and the top countries for producing potatoes were Belgium, New Zealand, France, Switzerland, and the United States, with New Zealand being the most consitent over the years we looked at for high potato yields.
+
+![Screen Shot 2022-09-17 at 12 39 23 PM](https://user-images.githubusercontent.com/99676466/190871876-dd623eb8-ab26-4402-a787-a21644d9e3c9.png)
+
+The countries with the highest yields of maize were the Netherlands and Tajikistan. The countries producing the highest wheat yields consistently were Ireland, Belgium, and the Netherlands. Every year Turkey produced the most soybeans. Algeria, Italy, and France consistently produce the most sorghum. Senegal, Australia, and Egypt produce the most sweet potatoes. Mali and Japan produce the most yams and India produces the most cassava. And Australia and Egypt produce the most rice paddies. Finally, Suriname and El Salvador produce the most plantians and other crops, which is bucketed together in this one category. Interestingly, though not surprisingly, it looks like the U.S. leads in use of pesticides and fertilizers. More pesticide and fertilizer use does not account for higher yields after a certain point, and this is an area that could be honed in on more with further research. 
+
+The exploratory and analysis phases both took longer and were more complicated than we had originally planned for.
 
 ## Communication Protocols
 Our group will utilize Slack, text messages, and Zoom meetings to keep communication open between all five group members. This way if a team member has a question or needs help outside of designated class meeting hours, they can post a message in slack, meet up with a team member(s) in Zoom or send a text for a more immediate response. One team member is in a different time zone, two hours behind the other team members; the team recognizes this potential issue and will plan meetings ahead of time utilizing evenings and weekends. Our group will divide tasks between the five group members and remain open to different forms of communication if necessary or if something is not working.
 
 ## Database
 
-![Crop_Yield_Analysis Entity Relationship Diagram](https://user-images.githubusercontent.com/103209236/189776825-96dffa7f-a1a6-4ea5-ad41-4b9a47bc1d26.png)
+![Crop_Yield_Analysis Entity Relationship Diagram](https://user-images.githubusercontent.com/99676466/190865732-9dae519d-692a-49f6-81e4-330e7c46c578.png)
 
 We connected our cleaned data to Postgres with a connection string using SQLAlchemy and the to_sql() method in Pandas. We created an engine and exported each of the cleaned tables(9) to the database, Crop_Yields_DB, which was created in  the local Postgres server. Images of the tables in Postgres can be viewed in the db_table_pngs folder. 
 ~~~ 
@@ -129,9 +159,18 @@ mlr_diff.head()
 ~~~
 ![Screen Shot 2022-09-14 at 10 44 38 AM](https://user-images.githubusercontent.com/99676466/190225551-33df6c62-93ee-40b4-9e1d-41217b518b91.png)
 
-Then we ran som statistics by importing metrics from the sklearn library and running r-squared, which returns a percentage, and measures the proportion of the variance for yields that is explained by the independent variables. So for our model, a large portion of the variance can be explained by the model inputs, or features. Because we have a large number of variables, that can contribute to a high r-squared value. To account for this overfitting, we ran some more stats to compare. The root mean squared error(RMSE), tells us how concentrated our data is around our line of best fit, or how far do our data points vary from our prediction. The RMSE value is in relation to our units which are hectagrams/hectare, so in our case is relatively small and means that the model is generally accounting for the important features very well. 
+Then we ran some statistics by importing metrics from the sklearn library and running r-squared, which returns a percentage, and measures the proportion of the variance for yields that is explained by the independent variables. So for our model, a large portion of the variance can be explained by the model inputs, or features. Because we have a large number of variables, that can contribute to a high r-squared value. To account for this overfitting, we ran some more stats to compare. The root mean squared error(RMSE), tells us how concentrated our data is around our line of best fit, or how far do our data points vary from our prediction. The RMSE value is in relation to our units which are hectagrams/hectare, so in our case is relatively small and means that the model is generally accounting for the important features very well. 
 
 ![Screen Shot 2022-09-14 at 11 55 29 AM](https://user-images.githubusercontent.com/99676466/190227647-50530f27-5e3e-4606-8dbe-fd508624264c.png)
+
+In order to help determine which features most influence crop yields, we ran some statistics on the linear regression, Albania model. The P-value helps us to determine which features are most important. To use these statics we imported statsmodels and used the ordinary least squares(OLS) method:
+~~~
+import statsmodels.api as sm
+mod = sm.OLS(y, x)    # Describe model
+res = mod.fit()       # Fit model
+print(res.summary())   # Summarize model
+~~~
+The only feature with a p-value below the standard alpha value of .05 was the previous years yield. Some of the features with lower p-values included rprevious three years average temperature and tonnes of potash. Amount of agricultural land could also be factored in. If more of these features had p-values below the alpha, they would be determined statistically significant and we could drop some of the features with higher values. Future work could include p-values for all countries. 
 
 The next model will create a nested for loop to cycle all the countries through the model, and get a predicted yield for each country in the year 2013. It can then be compared to the actual. 
 
@@ -216,4 +255,12 @@ In order to visualize the percent error and differences between predicted and ac
 
 ![Screen Shot 2022-09-15 at 9 34 11 AM](https://user-images.githubusercontent.com/99676466/190446148-068d0828-c38e-471a-aea1-8f19b6a2a3bd.png)
 
-## Future Work
+## Recommedations for Future Analysis
+It would be worth expanding the model in future work by including more data points by using more years. With this we would also want to continue modelling for best feature selection, so we could reduce features that were not statistically significant. To do this we would expand out statistical analysis including p-values on features for each countries model.
+* One question worth adressing in future work: at what point does more fertilzer and pesticide application cease to increase yields? 
+
+## What would we have done differently 
+Our biggest challenge once we cleaned the data, was that in order to show correlation we had to filter out and run the model on each country which further reduced the amount of data for each crop. 
+
+#### Technical or other Challenges
+
