@@ -2,7 +2,7 @@
 
 ## Topic Selection
 
-Our group selected the topic of crop yield, which is based on different factors such as temperature, nutrients, land use, and pesticides. Agriculture is a critical role in the global economy and understanding it can help solve global challenges, such as food security and reducing effects on and impact of climate change. Between the pandemic, the war in Ukraine, climate disasters, and inflation driving higher food prices, food scarcity is a topic at the forefront of the global economic and political landscape. We were interested in the crop yield data and wanted to determine what conditions create the best crop yield and which conditions have a higher effect on which countries yield the most crops for the year.
+Our group selected the topic of crop yield, which is based on different factors such as temperature, nutrients, land use, and pesticides. Agriculture is a critical role in the global economy and understanding it can help solve global challenges, such as food security and reducing effects on and impact of climate change. Between the pandemic, the war in Ukraine, climate disasters, and inflation driving higher food prices, food scarcity is a topic at the forefront of the global economic and political landscape. With agriculture as a leading industry in numbers of employees and accounting for trillions of dollars in the global economy, crop yields have far reaching impacts. It is an industry that both contributes to and is impacted by climate change. We were interested in the crop yield data and wanted to determine what conditions create the best crop yield and which conditions have a higher effect on which countries yield the most crops for the year.
 
 ## Presentation
 [Google Slides](https://docs.google.com/presentation/d/1yNYFJbbcBUawSA2hxCAlpLkM5uCbDq4VjPKTMF9JWZk/edit?usp=sharing)
@@ -33,13 +33,18 @@ During our data analysis phase we continued to pair down the data by using str.r
 
 ![Screen Shot 2022-09-11 at 6 14 38 PM](https://user-images.githubusercontent.com/99676466/189555201-28ee5f96-056c-467d-b92e-7256e2e5d6a0.png)
 
-The exploratory and analysis phases both took longer and were more complicated than we had originally planned for, but we feel confident the data we have selected will help us learn some interesting things about what influences crop yields.
+Potatoes had the highest yields and the top countries for producing potatoes were Belgium, New Zealand, France, Switzerland, and the United States, with New Zealand being the most consitent over the years we looked at for high potato yields.
+
+![Screen Shot 2022-09-17 at 10 23 11 AM](https://user-images.githubusercontent.com/99676466/190867018-c3a50a67-1090-4517-81d9-3c0173744536.png)
+
+The countries with the highest yields of maize were the Netherlands and Tajikistan. The countries producing the highest wheat yields consistently were Ireland, Belgium, and the Netherlands. Every year Turkey produced the most soybeans. Algeria, Italy, and France consistently produce the most sorghum. Senegal, Australia, and Egypt produce the most sweet potatoes. Mali and Japan produce the most yams and India produces the most cassava. And Australia and Egypt produce the most rice paddies. Finally, Suriname and El Salvador produce the most plantians and other crops, which is bucketed together in this one category. Interestingly, though not surprisingly, it looks like the U.S. leads in use of pesticides and fertilizers. More pesticide and fertilizer use does not account for higher yields after a certain point, and this is an area that could be honed in on more with further research. 
+
+The exploratory and analysis phases both took longer and were more complicated than we had originally planned for.
 
 ## Communication Protocols
 Our group will utilize Slack, text messages, and Zoom meetings to keep communication open between all five group members. This way if a team member has a question or needs help outside of designated class meeting hours, they can post a message in slack, meet up with a team member(s) in Zoom or send a text for a more immediate response. One team member is in a different time zone, two hours behind the other team members; the team recognizes this potential issue and will plan meetings ahead of time utilizing evenings and weekends. Our group will divide tasks between the five group members and remain open to different forms of communication if necessary or if something is not working.
 
 ## Database
-
 
 ![Crop_Yield_Analysis Entity Relationship Diagram](https://user-images.githubusercontent.com/99676466/190865732-9dae519d-692a-49f6-81e4-330e7c46c578.png)
 
@@ -219,3 +224,5 @@ In order to visualize the percent error and differences between predicted and ac
 ![Screen Shot 2022-09-15 at 9 34 11 AM](https://user-images.githubusercontent.com/99676466/190446148-068d0828-c38e-471a-aea1-8f19b6a2a3bd.png)
 
 ## Future Work
+It would be worth expanding the model in future work by including more data points by using more years.
+One question worth adressing in future work is at what point does more fertilzer and pesticide application cease to increase yields? 
