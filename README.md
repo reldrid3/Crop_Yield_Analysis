@@ -4,6 +4,8 @@
 
 Our group selected the topic of crop yield, which is based on different factors such as temperature, nutrients, land use, and pesticides. Agriculture is a critical role in the global economy and understanding it can help solve global challenges, such as food security and reducing effects on and impact of climate change. Between the pandemic, the war in Ukraine, climate disasters, and inflation driving higher food prices, food scarcity is a topic at the forefront of the global economic and political landscape. We were interested in the crop yield data and wanted to determine what conditions create the best crop yield and which conditions have a higher effect on which countries yield the most crops for the year.
 
+## [Google Slides](https://docs.google.com/presentation/d/1yNYFJbbcBUawSA2hxCAlpLkM5uCbDq4VjPKTMF9JWZk/edit?usp=sharing)
+
 ## Data Selection
 We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset), but realized the rainfall data was corrupt(all the same values). So we got data from the [Food and Agriculture Organization (FAO)](https://www.fao.org/faostat/en/#data/domains_table), where we were able to select data from variables we thought would be interesting. These include:
 * [Agricultural and Arable Land](https://www.fao.org/faostat/en/#data/RL)
@@ -18,6 +20,9 @@ In order to create a map for our dashboard we also added [latitude and longitude
 - Which country has the best conditions to yield the most crop consistently over time?
 - Which factors (temperature, nutrients, etc.) are the most important for impacting the highest crop yield?
 - How can countries maximize their crop yield based on the important factors considered?
+
+## Tools and Technologies
+Python, Pandas, Jupyter Notebooks, Postgresql, SQL, SQLALchemy, sklearn, matplotlib, Leaflet, Mapbox, Tableau, Javascript, html/css
 
 ### Data Exploration Phase
 During our exploratory data analysis we created a function to clean all the datasets that we import from the FAO website. This included dropping null values, dropping duplicates, and discovering which years there was adequate data for. We determined there was sufficient data during the years 2008-2013. We were able to loop through the data and add previous years data as features that could influence that years yields. 
@@ -60,7 +65,7 @@ temp_df_clean.to_sql(name='temperature', con=engine, if_exists='replace')
 agri_df_clean.to_sql(name='agri', con=engine, if_exists='replace')
 arable_df_clean.to_sql(name='arable', con=engine, if_exists='replace')
 ~~~
-In Postrges, we checked that the tables imported properly, then the 9 tables were joined using inner joins and the columns were renamed to avoid confusion with the values as seen in the join_query.sql file. Then we checked that the number of countries matched the number of countries in our clean_data.ipynb, which was 106. There were three countries from the lat_long table that needed str.replace to match the other tables so the data would not be lost. After this there were 106 countries. The fully joined table was named total_yields and exported as a csv. To import the total_yields table back into a notebook to use for the machine learning preprocessing and subsequent model run, we used the same connection string and create engine code as above followed by pandas read_sql_table() method:
+In Postrges, we checked that the tables imported properly, then the 9 tables were joined using inner joins and the columns were renamed to avoid confusion with the values as seen in the join_query.sql file. Then we checked that the number of countries matched the number of countries in our clean_data.ipynb, which was 106. There were three countries from the lat_long table that needed str.replace to match the other tables so the data would not be lost. After this there were 106 countries. The fully joined table was named total_yields and exported as a csv. To import the total_yields table back into a notebook to use for the machine learning preprocessing and subsequent model run, we used the same connection string and create engine code as above followed by Pandas read_sql_table() method:
 ~~~
 #read in joined sql table
 total_yields_df = pd.read_sql_table('total_yields', con=engine)
@@ -101,8 +106,8 @@ The target is 'yield'. This is how much crop yield a country produces (hectogram
   - The phosphate amount including the prior three years
   - The pesticide amount including the prior three years
   - The nitrogen amount including the prior three years
-  - How much a county's land is dedicated to agriculture
-  - How much of a county's land is arable (able to be farmed). 
+  - How much a country's land is dedicated to agriculture
+  - How much of a country's land is arable (able to be farmed). 
 
  ### Data preprocessing 
  ####  Feature Selection
@@ -133,5 +138,82 @@ The next model will create a nested for loop to cycle all the countries through 
 #### Benefits and Drawbacks
 The benefit of multivariate linear regression model is that one can predict the future based on many conditions. The limitations of this model is the assumption of linearity between the variables and the possibility for noisy data. The next model run will scale the data using the StandardScaler from the sklearn library since scaling can impact linear regression.
 
+## Machine Learning Model- Week 3
+Our work continued with our model by creating a for loop to loop through each country and run a linear regression to predict the yield for the year 2013. The result is a dataframe with predictions, what the actual yield was for 2013 and the difference between the two. 
+~~~
+predictions_df = pd.DataFrame(columns = ['area', 'crop', 'lat', 'long', 'yield_2013', \
+                                         'yield_2013_pred', 'yield_2013_diff', 'perc_err'])
+
+for country in countries:
+    country_rows = df[df['area'] == country]
+    crops = country_rows['crop'].unique()
+    for crop in crops:
+        crop_rows = country_rows[country_rows['crop'] == crop] #rows = 6
+        
+        crops_08_12 = crop_rows[crop_rows['year'] != 2013] #rows = 5
+        x = crops_08_12[['yield_1', 'yield_2', 'yield_3', 'yield_4', 'yield_5', \
+                   'avg_temp', 'avg_temp_1','avg_temp_2','avg_temp_3', 'avg_temp_4', 'avg_temp_5', \
+                   'tonnes_potash', 'tonnes_potash_1', 'tonnes_potash_2', 'tonnes_potash_3', \
+                   'tonnes_phosph', 'tonnes_phosph_1','tonnes_phosph_2', 'tonnes_phosph_3', \
+                   'tonnes_pesticide', 'tonnes_pesticide_1', 'tonnes_pesticide_2', 'tonnes_pesticide_3', \
+                  'tonnes_nitrogen', 'tonnes_nitrogen_1', 'tonnes_nitrogen_2', 'tonnes_nitrogen_3', \
+                  'arable_land', 'ag_land']]
+        y = crops_08_12['yield']
+        
+        #x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state = 100)
+        
+        scaler = StandardScaler()
+        x_scaler = scaler.fit(x)
+        #x_scaler = scaler.fit(x_train)
+        #x_train_scaled = x_scaler.transform(x_train)
+        #x_test_scaled = x_scaler.transform(x_test)
+        x_train_scaled = x_scaler.transform(x)
+        y_train = y
+        
+        mlr = LinearRegression()
+        mlr.fit(x_train_scaled, y_train)
+        
+        crops_13 = crop_rows[crop_rows['year'] == 2013] #rows = 1
+        x_test = crops_13[['yield_1', 'yield_2', 'yield_3', 'yield_4', 'yield_5', \
+                   'avg_temp', 'avg_temp_1','avg_temp_2','avg_temp_3', 'avg_temp_4', 'avg_temp_5', \
+                   'tonnes_potash', 'tonnes_potash_1', 'tonnes_potash_2', 'tonnes_potash_3', \
+                   'tonnes_phosph', 'tonnes_phosph_1','tonnes_phosph_2', 'tonnes_phosph_3', \
+                   'tonnes_pesticide', 'tonnes_pesticide_1', 'tonnes_pesticide_2', 'tonnes_pesticide_3', \
+                  'tonnes_nitrogen', 'tonnes_nitrogen_1', 'tonnes_nitrogen_2', 'tonnes_nitrogen_3', \
+                  'arable_land', 'ag_land']]
+        x_test_scaled = x_scaler.transform(x_test)
+        y_test = crops_13['yield']
+        pred_13 = mlr.predict(x_test_scaled)
+        perc_err = np.abs((y_test - pred_13) / y_test * 100)
+        
+        #pred_08_12 = mlr.predict(x_test_scaled)
+        #rmse = np.sqrt(metrics.mean_squared_error(y_test, pred_08_12))
+        #rsq = mlr.score(x_test_scaled, y_test)*100
+        #rsq = mlr.score(x_pred_scaled, y_actual)*100
+        
+        row = {'area': country, 'crop': crop, 'lat':crops_13['latitude'], 'long':crops_13['longitude'], 'yield_2013': y_test, 'yield_2013_pred': pred_13,\
+               'yield_2013_diff': y_test - pred_13, 'perc_err': perc_err}
+        row_df = pd.DataFrame(row)
+        predictions_df = pd.concat([predictions_df, row_df], axis=0, ignore_index=True)
+predictions_df
+~~~
+
+![Screen Shot 2022-09-15 at 9 43 32 AM](https://user-images.githubusercontent.com/99676466/190448039-02a4a906-9e69-4626-8826-025e2d8e4213.png)
+
+Then we decided the best statistical assessment of the results was to calculate the percent error between the prediction and the actual. The model on average preformed pretty well; the average percent error was 28.66%, but is reduced to 15% when the biggest outlier is removed. The Côte d'Ivoire had an extreme outlier in predicted yield for sweet potatoes with a percent error of 8484.30%. The median pecent error is perhaps more telling at 6.8%. There were a few other outliers that were over 100% error. Looking at the data for the Côte d'Ivoire, it appears that there was in increase in nutrients applied which could account for the model increase in yield prediction. 
+
+![Screen Shot 2022-09-15 at 9 45 29 AM](https://user-images.githubusercontent.com/99676466/190448588-854edacd-e295-428d-9d4d-de3becaa3de6.png)
+
+In this model run we scaled the data with StandardScaler from the sklearn library, but because of the nature of the dataframe and its structure, and our selection of using a span of five years to prediction the sixth year, a choice to make more of a forecsting model than a predictive one, we only had a few data points for each country. This meant that rather than using train_test_split(), the model used the data points as the training data and the forecasted point as the testing data. 
+
+
 ## Dashboard
-We will be using Leaflet, an open-source JavaScript library, that facilitates the development of interactive maps. Our map will have pins for each county, with the option to filter for different crops. When you click on the country you are able to see a prediction for future crop yields.
+By outputting latitude and longitude in the predictions_df from our third model, we were able to convert the csv of that dataframe to a geoJson to help us create an interactive map using Mapbox and Leaflet. Leaflet, an open-source JavaScript library, facilitates the development of interactive maps. Our map has icons for each county that correspond to the crop, with the option to filter the layer for different crops. When you click on the country or crop icon you are able to see a prediction for future crop yields, actual yield and the percent error in the model. 
+
+![Screen Shot 2022-09-15 at 9 54 44 AM](https://user-images.githubusercontent.com/99676466/190450640-acd0650e-cddd-4af1-bfcc-9d14941c6d53.png)
+
+In order to visualize the percent error and differences between predicted and actual yields we also created a [dashboard](https://public.tableau.com/app/profile/courtney.stern/viz/Crop_Yield_Final_Project/Dashboard1?publish=yes) in Tableau public. The interactive dashboard allows the user to select different countries or crops and reduce the noise from the outliers with a slider. 
+
+![Screen Shot 2022-09-15 at 9 34 11 AM](https://user-images.githubusercontent.com/99676466/190446148-068d0828-c38e-471a-aea1-8f19b6a2a3bd.png)
+
+## Future Work
