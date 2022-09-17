@@ -6,6 +6,7 @@ Our group selected the topic of crop yield, which is based on different factors 
 
 ## Presentation
 [Google Slides](https://docs.google.com/presentation/d/1yNYFJbbcBUawSA2hxCAlpLkM5uCbDq4VjPKTMF9JWZk/edit?usp=sharing)
+![Screen Shot 2022-09-17 at 12 26 35 PM](https://user-images.githubusercontent.com/99676466/190871420-c9a9ad9f-5d37-4b06-9c2b-bf799db1fb10.png)
 
 ## Data Selection
 We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset), but realized the rainfall data was corrupt(all the same values). So we got data from the [Food and Agriculture Organization (FAO)](https://www.fao.org/faostat/en/#data/domains_table), where we were able to select data from variables we thought would be interesting. These include:
@@ -18,7 +19,7 @@ We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelr
 In order to create a map for our dashboard we also added [latitude and longitude data](https://developers.google.com/public-data/docs/canonical/countries_csv)
 
 ## Questions we Hope to Answer
-- Which country has the best conditions to yield the most crop consistently over time?
+- Which country has the best conditions to yield the most crops consistently over time?
 - Which factors (temperature, nutrients, etc.) are the most important for impacting the highest crop yield?
 - How can countries maximize their crop yield based on the important factors considered?
 
@@ -26,7 +27,29 @@ In order to create a map for our dashboard we also added [latitude and longitude
 Python, Pandas, Jupyter Notebooks, Postgresql, SQL, SQLALchemy, sklearn, matplotlib, Leaflet, Mapbox, Tableau, Javascript, html/css
 
 ### Data Exploration Phase
-During our exploratory data analysis we created a function to clean all the datasets that we import from the FAO website. This included dropping null values, dropping duplicates, and discovering which years there was adequate data for. We determined there was sufficient data during the years 2008-2013. We were able to loop through the data and add previous years data as features that could influence that years yields. 
+During our exploratory data analysis we created a function to clean all the datasets that we import from the FAO website. This included dropping null values, dropping duplicates, and discovering which years there was adequate data for. We used inner joins/merging of tables to determine where there was adequate data. We determined there was sufficient data during the years 2008-2013. We were able to loop through the data and add previous years data as features that could influence that year's yields. Different countries had data entered under different names, so we had to go through and match names with str.replace() so we wouldn't have duplicate countries. For example, we had to change all the following countries:
+~~~
+def clean_countries(df):
+    df['area'] = df['area'].str.replace("Türkiye", "Turkey")
+    df['area'] = df['area'].str.replace("United Kingdom of Great Britain and Northern Ireland", "United Kingdom")
+    df['area'] = df['area'].str.replace("The former Yugoslav Republic of Macedonia", "North Macedonia")
+    df['area'] = df['area'].str.replace("Bolivia (Plurinational State of)", "Bolivia", regex=False)
+    df['area'] = df['area'].str.replace("China, mainland", "China", regex=False)
+    df['area'] = df['area'].str.replace("Iran (Islamic Republic of)", "Iran", regex=False)
+    df['area'] = df['area'].str.replace("Republic of Moldova", "Moldova")
+    df['area'] = df['area'].str.replace("Russian Federation", "Russia")
+    df['area'] = df['area'].str.replace("Republic of Korea", "South Korea")
+    df['area'] = df['area'].str.replace("Syrian Arab Republic", "Syria")
+    df['area'] = df['area'].str.replace("China, Taiwan Province of", "Taiwan")
+    df['area'] = df['area'].str.replace("United Republic of Tanzania", "Tanzania")
+    df['area'] = df['area'].str.replace("United States of America", "United States")
+    df['area'] = df['area'].str.replace("Venezuela (Bolivarian Republic of)", "Venezuela", regex=False)
+    df['area'] = df['area'].str.replace("Viet Nam", "Vietnam")
+    df['area'] = df['area'].str.replace("Côte D'Ivoire", "Côte d'Ivoire")
+    df['area'] = df['area'].str.replace("Czech Republic", "Czechia")
+    df['area'] = df['area'].str.replace("Congo (Democratic Republic Of The)", "Democratic Republic of the Congo", regex=False)
+    return df
+ ~~~   
 
 ### Data Analysis Phase
 During our data analysis phase we continued to pair down the data by using str.replace() to match all country names and correct variations in spelling. At this point there were 106 countries we used for our analysis. The crops value_counts for those countries are as follows:
@@ -136,9 +159,18 @@ mlr_diff.head()
 ~~~
 ![Screen Shot 2022-09-14 at 10 44 38 AM](https://user-images.githubusercontent.com/99676466/190225551-33df6c62-93ee-40b4-9e1d-41217b518b91.png)
 
-Then we ran som statistics by importing metrics from the sklearn library and running r-squared, which returns a percentage, and measures the proportion of the variance for yields that is explained by the independent variables. So for our model, a large portion of the variance can be explained by the model inputs, or features. Because we have a large number of variables, that can contribute to a high r-squared value. To account for this overfitting, we ran some more stats to compare. The root mean squared error(RMSE), tells us how concentrated our data is around our line of best fit, or how far do our data points vary from our prediction. The RMSE value is in relation to our units which are hectagrams/hectare, so in our case is relatively small and means that the model is generally accounting for the important features very well. 
+Then we ran some statistics by importing metrics from the sklearn library and running r-squared, which returns a percentage, and measures the proportion of the variance for yields that is explained by the independent variables. So for our model, a large portion of the variance can be explained by the model inputs, or features. Because we have a large number of variables, that can contribute to a high r-squared value. To account for this overfitting, we ran some more stats to compare. The root mean squared error(RMSE), tells us how concentrated our data is around our line of best fit, or how far do our data points vary from our prediction. The RMSE value is in relation to our units which are hectagrams/hectare, so in our case is relatively small and means that the model is generally accounting for the important features very well. 
 
 ![Screen Shot 2022-09-14 at 11 55 29 AM](https://user-images.githubusercontent.com/99676466/190227647-50530f27-5e3e-4606-8dbe-fd508624264c.png)
+
+In order to help determine which features most influence crop yields, we ran some statistics on the linear regression, Albania model. The P-value helps us to determine which features are most important. To use these statics we imported statsmodels and used the ordinary least squares(OLS) method:
+~~~
+import statsmodels.api as sm
+mod = sm.OLS(y, x)    # Describe model
+res = mod.fit()       # Fit model
+print(res.summary())   # Summarize model
+~~~
+The only feature with a p-value below the standard alpha value of .05 was the previous years yield. Some of the features with lower p-values included rprevious three years average temperature and tonnes of potash. Amount of agricultural land could also be factored in. If more of these features had p-values below the alpha, they would be determined statistically significant and we could drop some of the features with higher values. Future work could include p-values for all countries. 
 
 The next model will create a nested for loop to cycle all the countries through the model, and get a predicted yield for each country in the year 2013. It can then be compared to the actual. 
 
@@ -223,6 +255,12 @@ In order to visualize the percent error and differences between predicted and ac
 
 ![Screen Shot 2022-09-15 at 9 34 11 AM](https://user-images.githubusercontent.com/99676466/190446148-068d0828-c38e-471a-aea1-8f19b6a2a3bd.png)
 
-## Future Work
-It would be worth expanding the model in future work by including more data points by using more years.
-One question worth adressing in future work is at what point does more fertilzer and pesticide application cease to increase yields? 
+## Recommedations for Future Analysis
+It would be worth expanding the model in future work by including more data points by using more years. With this we would also want to continue modelling for best feature selection, so we could reduce features that were not statistically significant. To do this we would expand out statistical analysis including p-values on features for each countries model.
+* One question worth adressing in future work: at what point does more fertilzer and pesticide application cease to increase yields? 
+
+## What would we have done differently 
+Our biggest challenge once we cleaned the data, was that in order to show correlation we had to filter out and run the model on each country which further reduced the amount of data for each crop. 
+
+#### Technical or other Challenges
+
