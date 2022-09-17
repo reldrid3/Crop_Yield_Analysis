@@ -247,7 +247,7 @@ In this model run we scaled the data with StandardScaler from the sklearn librar
 
 
 ## Dashboard
-By outputting latitude and longitude in the predictions_df from our third model, we were able to convert the csv of that dataframe to a geoJson to help us create an interactive map using Mapbox and Leaflet. Leaflet, an open-source JavaScript library, facilitates the development of interactive maps. Our map has icons for each county that correspond to the crop, with the option to filter the layer for different crops. When you click on the country or crop icon you are able to see a prediction for future crop yields, actual yield and the percent error in the model. [Leaflet](leaflet/index.html)
+By outputting latitude and longitude in the predictions_df from our third model, we were able to convert the csv of that dataframe to a geoJson to help us create an interactive map using Mapbox and Leaflet. Leaflet, an open-source JavaScript library, facilitates the development of interactive maps. Our map has icons for each county that correspond to the crop, with the option to filter the layer for different crops. When you click on the country or crop icon you are able to see a prediction for future crop yields, actual yield and the percent error in the model.
 
 ![Screen Shot 2022-09-15 at 9 54 44 AM](https://user-images.githubusercontent.com/99676466/190450640-acd0650e-cddd-4af1-bfcc-9d14941c6d53.png)
 
