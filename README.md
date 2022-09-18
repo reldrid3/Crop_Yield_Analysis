@@ -64,9 +64,6 @@ The countries with the highest yields of maize were the Netherlands and Tajikist
 
 The exploratory and analysis phases both took longer and were more complicated than we had originally planned for.
 
-## Communication Protocols
-Our group will utilize Slack, text messages, and Zoom meetings to keep communication open between all five group members. This way if a team member has a question or needs help outside of designated class meeting hours, they can post a message in slack, meet up with a team member(s) in Zoom or send a text for a more immediate response. One team member is in a different time zone, two hours behind the other team members; the team recognizes this potential issue and will plan meetings ahead of time utilizing evenings and weekends. Our group will divide tasks between the five group members and remain open to different forms of communication if necessary or if something is not working.
-
 ## Database
 
 ![Crop_Yield_Analysis Entity Relationship Diagram](https://user-images.githubusercontent.com/99676466/190865732-9dae519d-692a-49f6-81e4-330e7c46c578.png)
