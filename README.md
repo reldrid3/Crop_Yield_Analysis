@@ -19,9 +19,9 @@ We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelr
 In order to create a map for our dashboard we also added [latitude and longitude data](https://developers.google.com/public-data/docs/canonical/countries_csv)
 
 ## Questions we Hope to Answer
-- Which country has the best conditions to yield the most crops consistently over time?
-- Which factors (temperature, nutrients, etc.) are the most important for impacting the highest crop yield?
-- How can countries maximize their crop yield based on the important factors considered?
+- Which countries produce the most crop yield per crop? 
+- What conditions affected crop yield the most?
+- Using the data, can we accurately predict how much yield counties will produce in the future??
 
 ## Tools and Technologies
 Python, Pandas, Jupyter Notebooks, Postgresql, SQL, SQLALchemy, sklearn, matplotlib, Leaflet, Mapbox, Tableau, Javascript, html/css
@@ -175,7 +175,7 @@ The next model will create a nested for loop to cycle all the countries through 
 The benefit of multivariate linear regression model is that one can predict the future based on many conditions. The limitations of this model is the assumption of linearity between the variables and the possibility for noisy data. The next model run will scale the data using the StandardScaler from the sklearn library since scaling can impact linear regression.
 
 ## Machine Learning Model- Week 3
-Our work continued with our model by creating a for loop to loop through each country and run a linear regression to predict the yield for the year 2013. The result is a dataframe with predictions, what the actual yield was for 2013 and the difference between the two. 
+Our work continued with our model by creating a for loop to loop through each country and run a linear regression to predict the yield for the year 2013. The result is a dataframe with predictions, what the actual yield was for 2013 and the difference between the two. The best way for us to calculate accuracy score was to calclated percent error which we have done for each countries model. 
 ~~~
 predictions_df = pd.DataFrame(columns = ['area', 'crop', 'lat', 'long', 'yield_2013', \
                                          'yield_2013_pred', 'yield_2013_diff', 'perc_err'])
@@ -252,12 +252,12 @@ In order to visualize the percent error and differences between predicted and ac
 
 ![Screen Shot 2022-09-15 at 9 34 11 AM](https://user-images.githubusercontent.com/99676466/190446148-068d0828-c38e-471a-aea1-8f19b6a2a3bd.png)
 
-## Recommedations for Future Analysis
-It would be worth expanding the model in future work by including more data points by using more years. With this we would also want to continue modelling for best feature selection, so we could reduce features that were not statistically significant. To do this we would expand out statistical analysis including p-values on features for each countries model.
+## Recommendations for Future Analysis
+It would be worth expanding the model in future work by including more data points by using more years. With this we would also want to continue modelling for best feature selection, so we could reduce features that were not statistically significant. To do this we would expand out statistical analysis including p-values on features for each countries model. Running another model such as a neural network or a different regression model such as a polynomial regression that might be a little more flexible to account for non lineararities would be future work that we would complete.  
 * One question worth adressing in future work: at what point does more fertilzer and pesticide application cease to increase yields? 
 
 ## What would we have done differently 
 Our biggest challenge once we cleaned the data, was that in order to show correlation we had to filter out and run the model on each country which further reduced the amount of data for each crop. 
 
 #### Technical or other Challenges
-
+Finding complete data was a challenge we had. As soon as we realized the rainfall data was corrupt we realized it was hard to find data for each country that was complete enough to add to the analysis we had. Finding complete data for other factors also proved challenging.
