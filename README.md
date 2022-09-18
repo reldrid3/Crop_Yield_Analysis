@@ -254,8 +254,6 @@ To visualize the percent error and differences between predicted and actual yiel
 
 ## Recommendations for Future Analysis
 It would be worth expanding the model in future work by including more data points by using more years. With this we would also want to continue modelling for best feature selection, so we could reduce features that were not statistically significant. To do this we would expand out statistical analysis including p-values on features for each countries model. Running another model such as a neural network or a different regression model such as a polynomial regression that might be a little more flexible to account for non-linearities would be future work that we would complete.  
-
-![image](https://user-images.githubusercontent.com/99676466/190931340-13602184-b728-44d6-9e85-a434dd1f7c4b.png)
  
 * One question worth addressing in future work: at what point does more fertilizer and pesticide application cease to increase yields? 
 
