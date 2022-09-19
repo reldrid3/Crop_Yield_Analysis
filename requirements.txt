@@ -1,0 +1,10 @@
+Machine model packages:
+pandas 
+numpy 
+sklearn
+matplotlib
+
+SQL connection packages:
+pathlib 
+psycopg2
+sqlalchemy 

@@ -9,7 +9,7 @@ Our group selected the topic of crop yield, which is based on different factors 
 ![Screen Shot 2022-09-17 at 12 26 35 PM](https://user-images.githubusercontent.com/99676466/190871420-c9a9ad9f-5d37-4b06-9c2b-bf799db1fb10.png)
 
 ## Data Selection
-We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset), but realized the rainfall data was corrupt(all the same values). So we got data from the [Food and Agriculture Organization (FAO)](https://www.fao.org/faostat/en/#data/domains_table), where we were able to select data from variables we thought would be interesting. These include:
+We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelris/crop-yield-prediction-dataset), but realized the rainfall data was all the same values. So we got data from the [Food and Agriculture Organization (FAO)](https://www.fao.org/faostat/en/#data/domains_table), where we were able to select data from variables we thought would be interesting. These include:
 * [Agricultural and Arable Land](https://www.fao.org/faostat/en/#data/RL)
 * [Nutrient Application: Nitrogen, Phosophate,Potash](https://www.fao.org/faostat/en/#data/RFN)
 * [Pesticides](https://www.fao.org/faostat/en/#data/RP)
@@ -19,9 +19,9 @@ We originally selected data from [kaggle](https://www.kaggle.com/datasets/patelr
 In order to create a map for our dashboard we also added [latitude and longitude data](https://developers.google.com/public-data/docs/canonical/countries_csv)
 
 ## Questions we Hope to Answer
-- Which country has the best conditions to yield the most crops consistently over time?
-- Which factors (temperature, nutrients, etc.) are the most important for impacting the highest crop yield?
-- How can countries maximize their crop yield based on the important factors considered?
+- Which countries produce the most crop yield per crop? 
+- What conditions affected crop yield the most?
+- Using the data, can we accurately predict how much yield counties will produce in the future??
 
 ## Tools and Technologies
 Python, Pandas, Jupyter Notebooks, Postgresql, SQL, SQLALchemy, sklearn, matplotlib, Leaflet, Mapbox, Tableau, Javascript, html/css
@@ -63,9 +63,6 @@ Potatoes had the highest yields and the top countries for producing potatoes wer
 The countries with the highest yields of maize were the Netherlands and Tajikistan. The countries producing the highest wheat yields consistently were Ireland, Belgium, and the Netherlands. Every year Turkey produced the most soybeans. Algeria, Italy, and France consistently produce the most sorghum. Senegal, Australia, and Egypt produce the most sweet potatoes. Mali and Japan produce the most yams and India produces the most cassava. And Australia and Egypt produce the most rice paddies. Finally, Suriname and El Salvador produce the most plantians and other crops, which is bucketed together in this one category. Interestingly, though not surprisingly, it looks like the U.S. leads in use of pesticides and fertilizers. More pesticide and fertilizer use does not account for higher yields after a certain point, and this is an area that could be honed in on more with further research. 
 
 The exploratory and analysis phases both took longer and were more complicated than we had originally planned for.
-
-## Communication Protocols
-Our group will utilize Slack, text messages, and Zoom meetings to keep communication open between all five group members. This way if a team member has a question or needs help outside of designated class meeting hours, they can post a message in slack, meet up with a team member(s) in Zoom or send a text for a more immediate response. One team member is in a different time zone, two hours behind the other team members; the team recognizes this potential issue and will plan meetings ahead of time utilizing evenings and weekends. Our group will divide tasks between the five group members and remain open to different forms of communication if necessary or if something is not working.
 
 ## Database
 
@@ -170,7 +167,7 @@ mod = sm.OLS(y, x)    # Describe model
 res = mod.fit()       # Fit model
 print(res.summary())   # Summarize model
 ~~~
-The only feature with a p-value below the standard alpha value of .05 was the previous years yield. Some of the features with lower p-values included rprevious three years average temperature and tonnes of potash. Amount of agricultural land could also be factored in. If more of these features had p-values below the alpha, they would be determined statistically significant and we could drop some of the features with higher values. Future work could include p-values for all countries. 
+The only feature with a p-value below the standard alpha value of .05 was the previous years yield. Some of the features with lower p-values included previous three years average temperature and tonnes of potash. Amount of agricultural land could also be factored in. If more of these features had p-values below the alpha, they would be determined statistically significant and we could drop some of the features with higher values. Future work could include p-values for all countries. 
 
 The next model will create a nested for loop to cycle all the countries through the model, and get a predicted yield for each country in the year 2013. It can then be compared to the actual. 
 
@@ -178,7 +175,7 @@ The next model will create a nested for loop to cycle all the countries through 
 The benefit of multivariate linear regression model is that one can predict the future based on many conditions. The limitations of this model is the assumption of linearity between the variables and the possibility for noisy data. The next model run will scale the data using the StandardScaler from the sklearn library since scaling can impact linear regression.
 
 ## Machine Learning Model- Week 3
-Our work continued with our model by creating a for loop to loop through each country and run a linear regression to predict the yield for the year 2013. The result is a dataframe with predictions, what the actual yield was for 2013 and the difference between the two. 
+Our work continued with our model by creating a for loop to loop through each country and run a linear regression to predict the yield for the year 2013. The result is a dataframe with predictions, what the actual yield was for 2013 and the difference between the two. The best way for us to calculate accuracy score was to calclated percent error which we have done for each countries model. 
 ~~~
 predictions_df = pd.DataFrame(columns = ['area', 'crop', 'lat', 'long', 'yield_2013', \
                                          'yield_2013_pred', 'yield_2013_diff', 'perc_err'])
@@ -239,11 +236,11 @@ predictions_df
 
 ![Screen Shot 2022-09-15 at 9 43 32 AM](https://user-images.githubusercontent.com/99676466/190448039-02a4a906-9e69-4626-8826-025e2d8e4213.png)
 
-Then we decided the best statistical assessment of the results was to calculate the percent error between the prediction and the actual. The model on average preformed pretty well; the average percent error was 28.66%, but is reduced to 15% when the biggest outlier is removed. The Côte d'Ivoire had an extreme outlier in predicted yield for sweet potatoes with a percent error of 8484.30%. The median pecent error is perhaps more telling at 6.8%. There were a few other outliers that were over 100% error. Looking at the data for the Côte d'Ivoire, it appears that there was in increase in nutrients applied which could account for the model increase in yield prediction. 
+Then we decided the best statistical assessment of the results was to calculate the percent error between the prediction and the actual. The model on average preformed pretty well; the average percent error was 28.66% but is reduced to 15% when the biggest outlier is removed. The Côte d'Ivoire had an extreme outlier in predicted yield for sweet potatoes with a percent error of 8484.30%. The median percent error is perhaps more telling at 6.8%. There were a few other outliers that were over 100% error. Looking at the data for the Côte d'Ivoire, it appears that there was in increase in nutrients applied which could account for the model increase in yield prediction. 
 
 ![Screen Shot 2022-09-15 at 9 45 29 AM](https://user-images.githubusercontent.com/99676466/190448588-854edacd-e295-428d-9d4d-de3becaa3de6.png)
 
-In this model run we scaled the data with StandardScaler from the sklearn library, but because of the nature of the dataframe and its structure, and our selection of using a span of five years to prediction the sixth year, a choice to make more of a forecsting model than a predictive one, we only had a few data points for each country. This meant that rather than using train_test_split(), the model used the data points as the training data and the forecasted point as the testing data. 
+In this model run we scaled the data with StandardScaler from the sklearn library, but because of the nature of the dataframe and its structure, and our selection of using a span of five years to prediction the sixth year, a choice to make more of a forecasting model than a predictive one, we only had a few data points for each country. This meant that rather than using train_test_split(), the model used the data points as the training data and the forecasted point as the testing data. 
 
 
 ## Dashboard
@@ -251,16 +248,17 @@ By outputting latitude and longitude in the predictions_df from our third model,
 
 ![Screen Shot 2022-09-15 at 9 54 44 AM](https://user-images.githubusercontent.com/99676466/190450640-acd0650e-cddd-4af1-bfcc-9d14941c6d53.png)
 
-In order to visualize the percent error and differences between predicted and actual yields we also created a [dashboard](https://public.tableau.com/app/profile/courtney.stern/viz/Crop_Yield_Final_Project/Dashboard1?publish=yes) in Tableau public. The interactive dashboard allows the user to select different countries or crops and reduce the noise from the outliers with a slider. 
+To visualize the percent error and differences between predicted and actual yields we also created a [dashboard](https://public.tableau.com/app/profile/courtney.stern/viz/Crop_Yield_Final_Project/Dashboard1?publish=yes) in Tableau public. The interactive dashboard allows the user to select different countries or crops and reduce the noise from the outliers with a slider. 
 
 ![Screen Shot 2022-09-15 at 9 34 11 AM](https://user-images.githubusercontent.com/99676466/190446148-068d0828-c38e-471a-aea1-8f19b6a2a3bd.png)
 
-## Recommedations for Future Analysis
-It would be worth expanding the model in future work by including more data points by using more years. With this we would also want to continue modelling for best feature selection, so we could reduce features that were not statistically significant. To do this we would expand out statistical analysis including p-values on features for each countries model.
-* One question worth adressing in future work: at what point does more fertilzer and pesticide application cease to increase yields? 
+## Recommendations for Future Analysis
+It would be worth expanding the model in future work by including more data points by using more years. With this we would also want to continue modelling for best feature selection, so we could reduce features that were not statistically significant. To do this we would expand out statistical analysis including p-values on features for each countries model. Running another model such as a neural network or a different regression model such as a polynomial regression that might be a little more flexible to account for non-linearities would be future work that we would complete.  
+ 
+* One question worth addressing in future work: at what point does more fertilizer and pesticide application cease to increase yields? 
 
 ## What would we have done differently 
-Our biggest challenge once we cleaned the data, was that in order to show correlation we had to filter out and run the model on each country which further reduced the amount of data for each crop. 
+Our biggest challenge once we cleaned the data, was that to show correlation we had to filter out and run the model on each country which further reduced the amount of data for each crop. 
 
 #### Technical or other Challenges
-
+Finding complete data was a challenge we had. As soon as we realized the rainfall data was repetitive and uninformative, we realized it was hard to find data for each country that was complete enough to add to the analysis we had. Finding complete data for other factors also proved challenging.
